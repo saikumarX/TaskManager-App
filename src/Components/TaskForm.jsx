@@ -1,20 +1,25 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
+export default function TaskForm({addTask}) {
+  const[task, setTask] = useState("")
+  const[priority, setPriority] = useState("Medium")
+  const[category, setCategory] = useState("General")
 
-export default function TaskForm() {
-  let[task, setTask] = useState("")
-  let[priority, setPriority] = useState("Medium")
-  let[category, setCategory] = useState("General")
-
-  const handlesubmit = () => {
-    addTask({text:task, priority, category, completed:fales})
+  const handlesubmit = (e)=>{
+    e.preventDefault();
+    addTask({text:task, priority, category, completed:false})
+    //Reset State:
+    setTask("");
+    setPriority("Medium");
+    setCategory("General")
   }
+  
   return (
-    <div>
-      <form className='task-form' onSubmit={handlesubmit}>
+      <form onSubmit={handlesubmit} className='task-form'>
         <div id='inp'>
-          <input type='text' placeholder='Enter the Task' onChange={(e)=> setTask(e.target.value)} />
-          <span><button type = 'submit'>Add Task</button></span>
-          <h1>{task} {priority} {category}</h1>
+          <input type='text' placeholder='Enter the Task' value={task} onChange={(e)=> setTask(e.target.value)} />
+          <span><button type ='submit'>Add Task</button></span>
+          {/* <h1>{task} {priority} {category}</h1> */}
         </div>
 
         <div id='btns'>
@@ -31,6 +36,5 @@ export default function TaskForm() {
           </select>
         </div>
       </form>
-    </div>
   )
 }
